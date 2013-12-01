@@ -1,11 +1,5 @@
-#
-# Cookbook Name:: td-agent
-# Recipe:: default
-#
-# Copyright 2013, YOUR_COMPANY_NAME
-#
-# All rights reserved - Do Not Redistribute
-#
+TARGET="libssl0.9.8_0.9.8o-4squeeze14_amd64.deb"
+TDAGENT="td-agent_1.1.17-1_amd64.deb"
 
 execute "apt_get_update" do
   command "apt-get update"
@@ -17,7 +11,6 @@ end
   end
 end
 
-TARGET="libssl0.9.8_0.9.8o-4squeeze14_amd64.deb"
 execute "install_#{TARGET}" do
   command "dpkg -i /tmp/#{TARGET}"
   action :nothing
@@ -30,7 +23,6 @@ remote_file "/tmp/#{TARGET}" do
   notifies :run, "execute[install_#{TARGET}]", :immediately
 end
 
-TDAGENT="td-agent_1.1.17-1_amd64.deb"
 execute "install_#{TDAGENT}" do
   command "dpkg -i /tmp/#{TDAGENT}"
   action :nothing
