@@ -1,0 +1,18 @@
+---
+driver_plugin: docker
+driver_config:
+  require_chef_omnibus: true
+
+platforms:
+- name: debian-7
+  driver_config:
+    image: inokappa/wheezy-7.2-basic
+- name: debian-6
+  driver_config:
+    image: inokappa/squeeze-basic
+
+suites:
+- name: default
+  run_list: 
+    - "recipe[td-agent_cookbook::collector_td-agent]"
+  attributes: {}

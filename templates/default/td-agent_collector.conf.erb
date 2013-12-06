@@ -1,0 +1,35 @@
+# Input
+<source>
+  type forward
+  port 24224
+</source>
+
+# Output
+#<match prodlog.ra9api.**>
+#  type typecast
+#  item_types atime:integer
+#  time_format %Y-%m-%dT%H:%M:%S%z
+#  prefix filtered
+#</match>
+
+<match prodlog.ra9api.**>
+  type copy
+
+  # to mongodb
+  <store>
+    type mongo
+    database prodlog                
+    collection ra9api               
+  </store>
+
+  # to elasticsearch
+  <store>
+    type elasticsearch
+    host 127.0.0.1
+    port 9200
+    include_tag_key true
+    tag_key @log_name
+    logstash_format true
+    flush_interval 10s
+  </store>
+</match>
